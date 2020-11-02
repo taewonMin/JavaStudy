@@ -142,19 +142,16 @@ class Buyer extends Customer{
    }
    
 //환불
-   int refund(Product p){
+   void refund(Product p){
 	   if(items.isEmpty()){   // 구매물품이 없는 경우
 		   System.out.println("구매물품이 없습니다.");
-		   return 0;
 	   }
 	   if(items.contains(p)){	// 내가 산 물건이면
 		   prodManage(p,0);
     	   money += p.price;
-           return p.price;   // 환불금액
        }else{
      	   System.out.println("너의 물건이 아닙니다.");
        }
-       return 0;
    }
    
    //1. 추가문제 - 클래스재구성
