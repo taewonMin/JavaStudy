@@ -19,7 +19,7 @@ import sun.misc.BASE64Encoder;
 	- 속도가 빠르지만 비밀키하나만을 사용하여 암호화를 하기때문에 비밀키 유출시 암호화가 무의미
 	
 	필요한 정보)
-	1. 키가 16byte의 배수 길이 문자열이어야함
+	1. 키의 길이는 128,192,256 bit(16,24,32byte)만 가능
 	2. Cipher - 암호화/복호화 클래스 
 		(객체 생성)
 		Cipher c = Cipher.getInstance("사용할 알고리즘/운용 모드/패딩 방식");
@@ -29,6 +29,8 @@ import sun.misc.BASE64Encoder;
 			- PKCS#5 또는 #7 패딩 : 블록 암호화 알고리즘에서 바이트 단위의 블럭의 빈자리를 채우기위해 사용되는 패딩 알고리즘
 				예) 블럭의 크기가 128비트(16바이트)이면,
 					블럭의 크기(16바이트)의 배수만큼 데이터가 꽉 차야함(16, 32, 48, ...)
+					블럭의 크기가 딱 맞아 떨어지는 경우에는 뒷부분의 byte(01, 02 02, ...)가 패딩비트인지 구분하기 어렵기 때문에
+					한 블럭만큼 패딩을 추가한다. 
 				원본 데이터		01 02 03 04 05 06 07 08 01 02 04 08 10 20 40 80 00 11 22 33 44 55 66 77 88 99 AA
 				블럭단위		01 02 03 04 05 06 07 08 01 02 04 08 10 20 40 80 | 00 11 22 33 44 55 66 77 88 99 6바이트만큼 부족
 					=> 부족한 바이트수(6)만큼 부족한바이트값(06)으로 채움
@@ -37,7 +39,7 @@ import sun.misc.BASE64Encoder;
 				#5방식과 #7방식은 구현 방식이 같지만 #5는 블럭크기가 (8 byte)로 고정
 				AES는 128비트(16바이트)블럭 알고리즘이기때문에 #5방식을 쓸 필요가 없다.
 				but, java에서 PKCS5Padding표기법만 허용함
-			- NoPadding : 패딩방식이 없기때문에 입력크기를 16바이트의 배수로 맞추어야함. 
+			- NoPadding : 패딩방식이 없기때문에 암호화할 입력 문자열의 크기를 16바이트의 배수로 맞추어야함. 
 							16바이트의 배수가 아니면  IllegalBlockSizeException 예외 발생
 		(초기화)
 		c.init(opmode값, key값);
@@ -101,7 +103,7 @@ public class AES256 {
 			System.out.println("현재 환경에서 사용할 수 없는 패딩방식");
 		} catch (InvalidKeyException e) {
 			e.printStackTrace();
-			System.out.println("키값이 16byte의 배수가 아님");
+			System.out.println("키값이 16또는 24또는 32가 아님");
 		} catch (IllegalBlockSizeException e) {
 			e.printStackTrace();
 			System.out.println("16바이트의 배수가 아닌 입력 길이");
@@ -162,7 +164,7 @@ public class AES256 {
 	}
 	
 	public static void main(String[] args) {
-		AES256 aes = new AES256("asdfasdfasdfasdasdfasdfasdfasdfd");	//16의 배수 길이
+		AES256 aes = new AES256("asdfasdfasdfasdfasdfasdfasdfasdf");	//가능한 키의 길이 : 16, 24, 32
 		String encData = aes.encrypt("안녕하십니까@asdf.com");
 		System.out.println(encData);
 		String decData = aes.decrypt(encData);
