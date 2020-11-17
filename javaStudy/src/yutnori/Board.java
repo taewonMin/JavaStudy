@@ -3,6 +3,7 @@ package yutnori;
 public class Board {
 	private static Board board = null;
 	
+	
 	private Board(){
 		
 	}
@@ -15,33 +16,33 @@ public class Board {
 	}
 	
 	public void printBorad(){
-		System.out.println("┌─────┐    ┌───┐    ┌───┐    ┌───┐    ┌───┐    ┌─────┐");
-		System.out.println("│     ├────┤   ├────┤   ├────┤   ├────┤   ├────┤     │");
-		System.out.println("└──┬──┘    └───┘    └───┘    └───┘    └───┘    └──┬──┘");
-		System.out.println("   │   \\\\                                    //   │   ");
-		System.out.println("   │     ┌────┐                        ┌────┐     │   ");
-		System.out.println(" ┌─┴─┐   │    │                        │    │   ┌─┴─┐ ");
-		System.out.println(" │   │   └────┘                        └────┘   │   │ ");
-		System.out.println(" └─┬─┘        \\\\                      //        └─┬─┘ ");
-		System.out.println("   │            ┌────┐          ┌────┐            │   ");
-		System.out.println("   │            │    │          │    │            │   ");
-		System.out.println(" ┌─┴─┐          └────┘          └────┘          ┌─┴─┐ ");
-		System.out.println(" │   │               \\\\        //               │   │ ");
-		System.out.println(" └─┬─┘                 ┌──────┐                 └─┬─┘ ");
-		System.out.println("   │                   │      │                   │   ");
-		System.out.println("   │                   │      │                   │   ");
-		System.out.println(" ┌─┴─┐                 └──────┘                 ┌─┴─┐ ");
-		System.out.println(" │   │               //        \\\\               │   │ ");
-		System.out.println(" └─┬─┘          ┌────┐          ┌────┐          └─┬─┘ ");
-		System.out.println("   │            │    │          │    │            │   ");
-		System.out.println("   │            └────┘          └────┘            │   ");
-		System.out.println(" ┌─┴─┐        //                      \\\\        ┌─┴─┐ ");
-		System.out.println(" │   │   ┌────┐                        ┌────┐   │   │ ");
-		System.out.println(" └─┬─┘   │    │                        │    │   └─┬─┘ ");
-		System.out.println("   │     └────┘                        └────┘     │   ");
-		System.out.println("   │   //                                    \\\\   │   ");
-		System.out.println("┌──┴──┐    ┌───┐    ┌───┐    ┌───┐    ┌───┐    ┌──┴──┐");
-		System.out.println("│     ├────┤   ├────┤   ├────┤   ├────┤   ├────┤     │");
-		System.out.println("└─────┘    └───┘    └───┘    └───┘    └───┘    └─────┘");
+		System.out.println("┌─────┐    ┌────┐    ┌────┐    ┌────┐    ┌────┐    ┌─────┐");
+		System.out.println("│ O4  ├────┤ 04 ├────┤    ├────┤    ├────┤    ├────┤     │");
+		System.out.println("└──┬──┘    └────┘    └────┘    └────┘    └────┘    └──┬──┘");
+		System.out.println("   │   \\\\\\                                      ///   │   ");
+		System.out.println("   │      ┌────┐                          ┌────┐      │   ");
+		System.out.println("┌──┴─┐    │ O4 │                          │    │    ┌─┴──┐");
+		System.out.println("│ O4 │    └────┘                          └────┘    │    │");
+		System.out.println("└──┬─┘         \\\\\\                      ///         └─┬──┘");
+		System.out.println("   │             ┌────┐            ┌────┐             │   ");
+		System.out.println("   │             │    │            │    │             │   ");
+		System.out.println("┌──┴─┐           └────┘            └────┘           ┌─┴──┐");
+		System.out.println("│    │                 \\\\\\      ///                 │    │");
+		System.out.println("└──┬─┘                   ┌──────┐                   └─┬──┘");
+		System.out.println("   │                     │      │                     │   ");
+		System.out.println("   │                     │      │                     │   ");
+		System.out.println("┌──┴─┐                   └──────┘                   ┌─┴──┐");
+		System.out.println("│    │                 ///      \\\\\\                 │    │");
+		System.out.println("└──┬─┘           ┌────┐            ┌────┐           └─┬──┘");
+		System.out.println("   │             │    │            │    │             │   ");
+		System.out.println("   │             └────┘            └────┘             │   ");
+		System.out.println("┌──┴─┐         ///                      \\\\\\         ┌─┴──┐");
+		System.out.println("│    │    ┌────┐                          ┌────┐    │    │");
+		System.out.println("└──┬─┘    │    │                          │    │    └─┬──┘");
+		System.out.println("   │      └────┘                          └────┘      │   ");
+		System.out.println("   │   ///                                      \\\\\\   │   ");
+		System.out.println("┌──┴──┐    ┌────┐    ┌────┐    ┌────┐    ┌────┐    ┌──┴──┐");
+		System.out.println("│     ├────┤    ├────┤    ├────┤    ├────┤    ├────┤     │");
+		System.out.println("└─────┘    └────┘    └────┘    └────┘    └────┘    └─────┘");
 	}
 }
