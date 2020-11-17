@@ -1,14 +1,18 @@
 package yutnori;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Yutnori {
 	private Board board = Board.getInstance();
 	private Yut[] yutArr = new Yut[4];	//윷 세트(4개)
 	
-	private String[] position = new String[20];	// 말의 위치 배열 - 20에 가면 끝
+//	private String[] position = new String[20];	// 말의 위치 배열 - 19->0
+	private int myMarker = 4;	// 내 말의 수
+	private int comMarker = 4;	// 상대방의 말의 수
 	private List<Integer> myDistance = new ArrayList<Integer>(); //윷을 던져 나온 눈 저장 배열
 	private boolean nextTurn = false;
 	
@@ -59,8 +63,10 @@ public class Yutnori {
 	 * 게임 메인 화면
 	 */
 	private void homeView() {
+		board.printBorad();
 		while(true){
-			board.printBorad();
+			System.out.println("내 말 : O\t\t남은 말의 수 : "+myMarker);
+			System.out.println("상대 말 : X\t남은 말의 수 : "+comMarker);
 			System.out.println("----------------------------------------------------------");
 			System.out.println("[1]윷 던지기 [0]포기");
 			while(true){
@@ -75,11 +81,16 @@ public class Yutnori {
 				switch (input) {
 				case 1:
 					//윷 던지기
-					int distance = tossYut();
-					//나온 거리 저장 배열
-					myDistance.add(distance);
+					tossYut();
 					//말 이동
-					move(myDistance);
+					while(myDistance.size()>0) {
+						System.out.println("----------------------------------------------------------");
+						System.out.println("나의 이동가능 수치 : "+myDistance);
+						System.out.println("남은 나의 말의 수 : "+myMarker);
+						System.out.println("[1]새 말 놓기 [2]기존 말 이동");
+						choiceMarker();
+						board.printBorad();
+					}
 					nextTurn = true;
 					break;
 				case 0:
@@ -95,30 +106,41 @@ public class Yutnori {
 		}
 	}
 
-	private int tossYut() {
-		System.out.println("\n윷 던지기!\n");
-		shuffle();
-		int distance = 0;
-		boolean backDo = false;
-		for(int i=0; i<4; i++){
-			int random = (int)(Math.random()*2);
-			if(random==1){
-				yutArr[i].printF();
-				distance++;
-			}else{
-				if(yutArr[i].getBackDo()){
-					yutArr[i].printBD();
-					backDo = true;
+	private void tossYut() {
+		while(true) {
+			System.out.println("\n윷 던지기!\n");
+			shuffle();
+			int distance = 0;
+			boolean backDo = false;
+			for(int i=0; i<4; i++){
+				int random = (int)(Math.random()*2);
+				if(random==1){
+					yutArr[i].printF();
 				}else{
-					yutArr[i].printB();
+					if(yutArr[i].getBackDo()){
+						yutArr[i].printBD();
+						backDo = true;
+					}else{
+						yutArr[i].printB();
+					}
+					distance++;
 				}
 			}
+			//백도이면
+			if(distance==1 && backDo){
+				distance = -1;
+			}else if(distance==0) {
+				distance = 5;
+			}
+			//수치만큼 저장
+			myDistance.add(distance);
+			//윷 또는 모 이면 한번더
+			if(distance==4 || distance==5) {
+				System.out.println("\n한번더!!\n");
+			}else {
+				break;
+			}
 		}
-		//백도이면
-		if(distance==3 && backDo){
-			distance = -1;
-		}
-		return distance;
 	}
 	
 	private void shuffle(){
@@ -130,26 +152,59 @@ public class Yutnori {
 		}
 	}
 	
-	private void move(List<Integer> myDistance){
-		for(int distance : myDistance) {
-			switch (distance) {
-			case 3:
-				//도
-				break;
-			case 2:
-				//개
-				break;
+	private void choiceMarker(){
+		while(true) {
+			int input = 0;
+			try {
+				input = sc.nextInt();
+			} catch (Exception e) {
+				System.out.println("숫자만 입력하세요.");
+				sc = new Scanner(System.in);
+				continue;
+			}
+			switch (input) {
 			case 1:
-				//걸
-				break;
-			case 0:
-				//윷
-				break;
-			case 4:
-				//모
-				break;
+				//새 말 놓기 메서드
+				if(myMarker==0) {
+					System.out.println("더 이상 추가할 말이 없습니다.");
+					continue;
+				}else {
+					newMarker();
+					return;
+				}
+			case 2:
+				//기존의 말 이동 메서드
+				return;
 			default:
-				//백도
+				System.out.println("잘못된 입력입니다.");
+			}
+		}
+	}
+	
+	private void newMarker() {
+		System.out.println("몇 칸을 전진할지 선택하세요.");
+		System.out.println("나의 이동가능 수치 : "+myDistance);
+		while(true) {
+			int input = 0;
+			try {
+				input = sc.nextInt();
+			} catch (Exception e) {
+				System.out.println("숫자만 입력하세요.");
+				sc = new Scanner(System.in);
+				continue;
+			}
+			//내 리스트에 있는지 확인
+			if(myDistance.remove((Integer)input)) {
+				//있으면 새 말을 추가하여 게임판에서 해당 거리만큼 이동
+				Map<String, Object> params = new HashMap<>();
+				params.put("marker", "O1");
+				params.put("pos", input);
+				board.setNewMarkerPosition(params);
+				
+				myMarker--;
+				break;
+			}else {
+				System.out.println("잘못된 입력입니다.");
 			}
 		}
 	}
