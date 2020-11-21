@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Yutnori {
+	private static Yutnori nori = null;
+	
 	private Board board = Board.getInstance();
 	private Yut[] yutArr = new Yut[4];	//윷 세트(4개)
 	
@@ -19,6 +21,17 @@ public class Yutnori {
 	
 	private Scanner sc = new Scanner(System.in);
 	
+	private Yutnori(){
+		
+	}
+	
+	public static Yutnori getInstance(){
+		if(nori==null){
+			nori = new Yutnori();
+		}
+		return nori;
+	}
+	
 	{
 		//윷 초기화
 		yutArr[0] = new Yut(false);
@@ -28,7 +41,9 @@ public class Yutnori {
 	}
 	
 	public void startGame(){
-		System.out.println("---------------------시작---------------------");
+		System.out.println("──────────────────────────────────────────────────");
+		System.out.println("                    JJutNori                      ");
+		System.out.println("──────────────────────────────────────────────────");
 		while(true){
 			System.out.println("[1]게임 시작 [2]게임 규칙 [0]종료");
 			int input = 0;
@@ -107,7 +122,7 @@ public class Yutnori {
 							continue;
 						}
 						if(player.finMarker==4){
-							System.out.println("\n승리!!!\n");
+							System.out.println("\n\t"+player.name+"님 승리!!!\n");
 							return;
 						}
 						board.printBorad();
@@ -214,12 +229,12 @@ public class Yutnori {
 	}
 	
 	private void orgMarker(){
+		board.printBorad();
+		List<Integer> markerList = board.getMarkerList(player.marker);
+		System.out.println("출전한 내 말의 수 : " + (4-player.markerNum));
+		System.out.println("내 말의 위치 : " + markerList);
+		System.out.println("움직일 말의 현재 위치를 선택하세요.");
 		while(true){
-			board.printBorad();
-			List<Integer> markerList = board.getMarkerList(player.marker);
-			System.out.println("놓여있는 나의 말의 수 : " + markerList.size());
-			System.out.println("내 말의 위치 : " + markerList);
-			System.out.println("움직일 말의 현재 위치를 선택하세요.");
 			int input = 0;
 			try {
 				input = sc.nextInt();
@@ -253,12 +268,12 @@ public class Yutnori {
 			}
 			//내 이동수치 리스트에 있는지 확인
 			if(myDistance.contains(input)) {
-				//이동할 말 조회하기
+				//이동할 말
 				String moveMarker = player.marker+1;
 				if(nowPos!=-1){
 					Map<String, Object> myMarker = new HashMap<>();
-					myMarker.put("pos", nowPos);
-					myMarker.put("nowPos", 0);
+					myMarker.put("pos", 0);
+					myMarker.put("nowPos", nowPos);
 					moveMarker = board.getMarker(myMarker);
 				}					
 				
@@ -270,13 +285,12 @@ public class Yutnori {
 				//이동할 위치에 다른 말이 있는지 확인
 				String marker = board.getMarker(params);	// 이동할 위치
 				if(!marker.equals("  ")){
-					System.out.println("빈여백 두자리와 같지 않아?!?"+marker);
 					//내 말이면
 					if(marker.charAt(0)==player.marker.charAt(0)){
 						System.out.println("이미 나의 말이 존재합니다. 업고 가시겠습니까?(Y/N)");
 						String choice = sc.next().toUpperCase();
 						if("Y".equals(choice)){
-							marker = String.valueOf(marker.charAt(0)) + (Integer.parseInt(marker.substring(1))+1);
+							marker = player.marker + (Integer.parseInt(moveMarker.substring(1))+Integer.parseInt(marker.substring(1)));
 							params.put("marker", marker);
 						}else{
 							result = false;
@@ -286,7 +300,7 @@ public class Yutnori {
 					else{	
 						System.out.println("\n상대말을 잡았습니다!\n");
 						try {
-							Thread.sleep(500);
+							Thread.sleep(1000);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -296,7 +310,7 @@ public class Yutnori {
 						}else{
 							System.out.println("모 또는 윷으로 잡았을 경우에는 추가 기회를 얻을 수 없습니다.");
 							try {
-								Thread.sleep(500);
+								Thread.sleep(1000);
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
@@ -365,5 +379,34 @@ class User{
 	
 	public String getName(){
 		return name;
+	}
+}
+
+class Yut {
+	private boolean backDo;
+	
+	public Yut(boolean backDo){
+		this.backDo = backDo;
+	}
+	public boolean getBackDo(){
+		return backDo;
+	}
+	
+	public void printF(){
+		System.out.println("┌─────────────────────┐ ");
+		System.out.println("│    Χ     Χ     Χ    │ ");
+		System.out.println("└─────────────────────┘ ");
+	}
+	
+	public void printB(){
+		System.out.println("┌─────────────────────┐ ");
+		System.out.println("│                     │ ");
+		System.out.println("└─────────────────────┘ ");
+	}
+	
+	public void printBD(){
+		System.out.println("┌─────────────────────┐ ");
+		System.out.println("│          ■          │ ");
+		System.out.println("└─────────────────────┘ ");
 	}
 }

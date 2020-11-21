@@ -88,6 +88,7 @@ public class Board {
 					}
 				}else{	// 둘레
 					pos += nowPos;
+					System.out.println(pos);
 				}
 			}
 		}
@@ -110,7 +111,9 @@ public class Board {
 		int nowPos = (int)params.get("nowPos");
 		int dtn = pos;
 		//백도이면
-		if(pos == -1){
+		if(dtn == 0){	//이동할 말의 현재 위치
+			dtn = nowPos;
+		}else if(dtn == -1){
 			if(nowPos==-1){	//새로운 말이면
 				dtn = 1;
 			}else if(nowPos==0){
@@ -126,7 +129,8 @@ public class Board {
 			}
 		}else{
 			if(nowPos==0){	// 시작점이면
-				dtn += nowPos;
+				return "  ";
+			}else if(nowPos==-1){	// 새말 출발
 			}else if(nowPos==5){	//5번 위치에서 시작
 				dtn += 19;
 			}else if(nowPos==10){ //10번 위치에서 시작
