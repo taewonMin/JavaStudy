@@ -1,4 +1,4 @@
-package practiceClass;
+package practice;
 
 import java.util.Vector;
 
