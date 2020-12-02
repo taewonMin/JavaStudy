@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="board">
+
+	<insert id="insertBoard" parameterClass="boardVO">
+	
+		insert into jdbc_board
+		values(board_seq.nextVal, #boardTitle#, #boardWriter#, sysdate, #boardContent#)
+					
+	</insert>
+	
+	<resultMap class="boardVO" id="boardMap">
+		<result property="boardNo" column="board_no"/>
+		<result property="boardTitle" column="board_title"/>
+		<result property="boardWriter" column="board_writer"/>
+		<result property="boardDate" column="board_date"/>
+		<result property="boardContent" column="board_content"/>
+	</resultMap>
+	
+	<select id="getAllBoard" resultMap="boardMap">
+	
+		select * from jdbc_board
+		order by 1
+		
+	</select>
+	
+	<select id="searchBoard" parameterClass="String" resultMap="boardMap">
+		
+		select * from jdbc_board
+		where board_title like '%'||#search#||'%'
+		   or board_content like '%'||#search#||'%'
+		order by 1
+		
+	</select>
+	
+	<update id="updateBoard" parameterClass="boardVO">
+		
+		update jdbc_board
+		set board_title = #boardTitle#,
+			board_content = #boardContent#
+		where board_no = (select board_no 
+					      from (select rownum as rn,
+					                   board_no
+					            from jdbc_board
+					            order by 2)
+					      where rn = #boardNo#)
+		
+	</update>
+	
+	<delete id="deleteBoard" parameterClass="Integer">
+	
+		delete jdbc_board
+		where board_no = (select board_no 
+					      from (select rownum as rn,
+					              	   board_no
+					            from jdbc_board
+					            order by 2)
+					      where rn = #boardNo#)
+	
+	</delete>
+
+</sqlMap>
