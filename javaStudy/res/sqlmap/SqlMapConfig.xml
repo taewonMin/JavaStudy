@@ -4,7 +4,7 @@
     "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
     
 <sqlMapConfig>
-	<properties resource="SqlMapConfig.properties" />
+	<properties resource="sqlmap/SqlMapConfig.properties" />
 
 	<settings cacheModelsEnabled="true" enhancementEnabled="true"
 		lazyLoadingEnabled="true" maxRequests="32" maxSessions="10"
@@ -21,6 +21,6 @@
 		</dataSource>
 	</transactionManager>
 	
-	<sqlMap resource="board.xml"/>
+	<sqlMap resource="sqlmap/board.xml"/>
 	
 </sqlMapConfig>

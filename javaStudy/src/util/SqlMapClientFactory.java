@@ -20,7 +20,7 @@ public class SqlMapClientFactory {
 			try {
 				Charset charset = Charset.forName("UTF-8");
 				Resources.setCharset(charset);
-				Reader rd = Resources.getResourceAsReader("SqlMapConfig.xml");
+				Reader rd = Resources.getResourceAsReader("sqlmap/SqlMapConfig.xml");
 				
 				smc = SqlMapClientBuilder.buildSqlMapClient(rd);
 				
