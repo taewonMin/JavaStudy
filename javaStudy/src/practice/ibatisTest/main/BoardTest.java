@@ -1,11 +1,9 @@
 package practice.ibatisTest.main;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.List;
 import java.util.Scanner;
+
+import org.apache.log4j.Logger;
 
 import practice.ibatisTest.service.BoardServiceImpl;
 import practice.ibatisTest.service.IBoardSerivce;
@@ -41,11 +39,12 @@ create sequence board_seq
 
  */
 public class BoardTest {
+	
 	private IBoardSerivce bs = BoardServiceImpl.getInstance();
-	Connection conn;
-	Statement stmt;
-	PreparedStatement pstmt;
-	ResultSet rs;
+	
+	// 로그 생성
+	private static final Logger PARAM_LOGGER = Logger.getLogger(BoardTest.class);
+	private static final Logger RESULT_LOGGER = Logger.getLogger("board.Result");
 	
 	Scanner sc = new Scanner(System.in);
 	
@@ -148,7 +147,11 @@ public class BoardTest {
 		bv.setBoardTitle(title);
 		bv.setBoardContent(content);
 		
+		PARAM_LOGGER.warn(("파라미터 : " + writer + ", " + title + ", " + content));
+		
 		int chk = bs.insertBoard(bv);
+		
+		RESULT_LOGGER.debug("결과 : " + chk);
 		
 		if(chk > 0) {
 			System.out.println("\n글이 등록되었습니다.");
