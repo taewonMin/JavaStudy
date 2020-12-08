@@ -3,11 +3,9 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/aes256/commons-codec-1.10.jar"/>
-	<classpathentry kind="lib" path="lib/aes256/local_policy.jar"/>
-	<classpathentry kind="lib" path="lib/aes256/US_export_policy.jar"/>
-	<classpathentry kind="lib" path="lib/mail/mail-1.4.7.jar"/>
-	<classpathentry kind="lib" path="lib/log4j/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis/ibatis-2.3.4.726.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_AES256"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_EMAIL"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_IBATIS"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_LOG4J"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
