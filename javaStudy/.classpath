@@ -3,9 +3,9 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_AES256"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_EMAIL"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_IBATIS"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_LOG4J"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Email"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/AES256"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JDBC"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Ibatis"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
