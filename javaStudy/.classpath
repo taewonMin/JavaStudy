@@ -6,7 +6,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_AES256"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_EMAIL"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_IBATIS"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_JDBC"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_LOG4J"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
