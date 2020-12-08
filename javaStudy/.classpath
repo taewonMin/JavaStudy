@@ -5,14 +5,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_AES256"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_EMAIL"/>
-<<<<<<< HEAD
-	<classpathentry kind="lib" path="lib/jdbc/ojdbc6.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_IBATIS"/>
-	<classpathentry kind="lib" path="lib/log4j/log4j-1.2.17.jar"/>
-=======
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_IBATIS"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_JDBC"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaStudy_LOG4J"/>
->>>>>>> 802f0bc58489ed8c5a6ca5c309c22763e564ca8a
 	<classpathentry kind="output" path="bin"/>
 </classpath>
