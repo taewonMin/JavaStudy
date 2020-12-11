@@ -120,17 +120,8 @@ public class HorseRace {
 		}
 		
 		// 현재 경주 상황 출력
-		int temp = 0;
+		int endCnt = 0;
 		while(true) {
-			// 10마리가 모두 들어왔으면 종료
-			if(MyThread.endCheck()) {
-				// 출력 지연 해결
-				temp++;
-				if(temp==2) {
-					break;
-				}
-			}
-			
 			// 경주 상황 출력
 			for(int i=0; i<HORSE_NUM; i++) {
 				System.out.print(horses.get(i).getName() + "\t");	// 말 이름
@@ -138,11 +129,23 @@ public class HorseRace {
 			}
 			System.out.println();
 			
-			// 1초 간격으로 출력
+			// 0.2초 간격으로 출력
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+			}
+			// 10마리가 모두 들어왔으면 종료
+			if(endCnt != 10) {
+				endCnt = 0;
+				for(int i=0; i<HORSE_NUM; i++) {
+					if(tArr[i].getState() != Thread.State.TERMINATED) {
+						break;
+					}
+					endCnt++;
+				}
+			}else {
+				break;
 			}
 		}
 		
@@ -154,7 +157,6 @@ public class HorseRace {
 			switch(i) {
 			case 0:
 				System.out.println(" 🥇");
-				
 				break;
 			case 1:
 				System.out.println(" 🥈");
@@ -164,6 +166,11 @@ public class HorseRace {
 				break;
 			default:
 				System.out.println();
+			}
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 		System.out.println();
@@ -182,7 +189,7 @@ public class HorseRace {
 					myDonation *= 2;
 					break;
 				default:
-//					myDonation = 0;
+					myDonation = 0;
 				}
 				break;
 			}
@@ -194,8 +201,7 @@ public class HorseRace {
 class MyThread extends Thread {
 	private String track = "🐎-------------------------------------------------";
 	private Horse horse;
-	private static int rank = 1;
-	private static boolean endRace = false;
+	private volatile static int rank = 1;
 	
 	public MyThread(Horse horse) {
 		this.horse = horse;
@@ -210,15 +216,12 @@ class MyThread extends Thread {
 			if(i == len-2) {
 				track += "\t" + rank;
 				horse.setRank(rank++);
-				if(rank==11) {
-					endRace = true;
-				}
 				break;
 			}
 			track = track.substring(0, i) + "-🐎" + track.substring(i+3);
 			
 			// 말의 스피드
-			int random = (int)(Math.random()*11)*100;
+			int random = (int)(Math.random()*11)*30;
 			try {
 				Thread.sleep(random);
 			} catch (InterruptedException e) {
@@ -229,10 +232,6 @@ class MyThread extends Thread {
 	
 	public void printTrack() {
 		System.out.println(track);
-	}
-	
-	public static boolean endCheck() {
-		return endRace;
 	}
 }
 
@@ -262,16 +261,6 @@ class Horse implements Comparable<Horse> {
 
 	@Override
 	public int compareTo(Horse o) {
-		// if(getRank() > o.getRank()) {
-		// return 1;
-		// }else if(getRank() == o.getRank()) {
-		// return 0;
-		// }else {
-		// return -1;
-		// }
-
-		// return Integer.compare(getRank(), o.getRank());
-
 		return new Integer(getRank()).compareTo(o.getRank());
 	}
 }
