@@ -94,14 +94,13 @@ public class MultiChatServer {
 		Socket friend = clients.get(to);
 		
 		try {
+			DataOutputStream sender = new DataOutputStream(clients.get(from).getOutputStream());
 			if(friend != null) {
-				// 대화명에 해당하는 Socket의 OutputStream구하기
-				DataOutputStream dos = new DataOutputStream(friend.getOutputStream());
-				dos.writeUTF("[" + from + "님의 귓속말] " + msg);	// 메시지 보내기
-					
+				DataOutputStream receiver = new DataOutputStream(friend.getOutputStream());
+				receiver.writeUTF("[" + from + "님의 귓속말] " + msg);	// 메시지 보내기
+				sender.writeUTF("[" + to + "님에게 귓속말] " + msg);
 			}else {	// 귓속말 상대가 없으면
-				DataOutputStream dos = new DataOutputStream(clients.get(from).getOutputStream());
-				dos.writeUTF("귓속말 상대가 없습니다.");
+				sender.writeUTF("귓속말 상대가 없습니다.");
 			}
 		}catch(IOException e) {
 			e.printStackTrace();
