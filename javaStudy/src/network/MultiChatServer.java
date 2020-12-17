@@ -123,7 +123,9 @@ public class MultiChatServer {
 				// 이후의 메시지처리는 반복문으로 처리한다.
 				// 한 클라이언트가 보낸 메시지를 다른 모든 클라이언트에게 보내준다.
 				while(dis != null) {
-					sendMessage(dis.readUTF(), name);
+					String msg = dis.readUTF();
+					if()
+					sendMessage(msg, name);
 				}
 				
 			}catch(IOException e) {

@@ -63,7 +63,14 @@ public class MultiChatClient {
 				}
 				while(dos != null) {
 					// 키보드로 입력받은 메시지를 서버로 전송
-					dos.writeUTF(scan.nextLine());
+					String msg = scan.nextLine();
+					if(msg.startsWith("/w ")) {	// /w 난난나 ㅁㄴㅇㄹ
+						String friend = msg.split(" ")[1];
+						String secretMsg = msg.substring(friend.length()+4);
+						dos.writeUTF(secretMsg);
+					}else {
+						dos.writeUTF(msg);
+					}
 				}
 			}catch(IOException e) {
 				e.printStackTrace();
