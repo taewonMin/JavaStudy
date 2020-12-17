@@ -89,6 +89,25 @@ public class MultiChatServer {
 		}
 	}
 	
+	// 귓속말
+	public void sendMessage(String msg, String from, String to) {
+		Socket friend = clients.get(to);
+		
+		try {
+			if(friend != null) {
+				// 대화명에 해당하는 Socket의 OutputStream구하기
+				DataOutputStream dos = new DataOutputStream(friend.getOutputStream());
+				dos.writeUTF("[" + from + "님의 귓속말] " + msg);	// 메시지 보내기
+					
+			}else {	// 귓속말 상대가 없으면
+				DataOutputStream dos = new DataOutputStream(clients.get(from).getOutputStream());
+				dos.writeUTF("귓속말 상대가 없습니다.");
+			}
+		}catch(IOException e) {
+			e.printStackTrace();
+		}			
+	}
+	
 	// 서버에서 클라이언트로 메시지를 전송할 Thread를 Inner클래스로 정의
 	// Inner클래스에서는 부모 클래스의 멤버들을 직접 사용할 수 있다.
 	class ServerReceiver extends Thread {
@@ -124,8 +143,13 @@ public class MultiChatServer {
 				// 한 클라이언트가 보낸 메시지를 다른 모든 클라이언트에게 보내준다.
 				while(dis != null) {
 					String msg = dis.readUTF();
-					if()
-					sendMessage(msg, name);
+					if(msg.startsWith("/w ")) {
+						String friend = msg.split(" ")[1];
+						String secretMsg = msg.substring(friend.length()+4);
+						sendMessage(secretMsg, name, friend);
+					}else {
+						sendMessage(msg, name);
+					}
 				}
 				
 			}catch(IOException e) {
