@@ -1,4 +1,4 @@
-package review;
+package review.udp;
 
 import java.io.FileOutputStream;
 import java.net.DatagramPacket;
