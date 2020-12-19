@@ -51,11 +51,13 @@ public class UdpFileSender {
 				if(readBytes == -1) {
 					break;
 				}
+				// 파일 전송
 				dp = new DatagramPacket(buffer, readBytes, serverAdd, port);
 				ds.send(dp);
+				
 				totalReadBytes += readBytes;
 				System.out.println("진행상황 : " + totalReadBytes
-								+ "/" + fileSize + " Byte(s)"
+								+ "/" + fileSize + " Byte(s) ("
 								+ (totalReadBytes * 100 / fileSize)
 								+ " %)");
 			}

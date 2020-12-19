@@ -12,7 +12,7 @@ public class UdpClient {
 		
 		DatagramPacket inPacket = new DatagramPacket(msg, msg.length);
 		
-		InetAddress serverAddress = InetAddress.getByName("192.168.46.22");
+		InetAddress serverAddress = InetAddress.getByName("localhost");
 		DatagramPacket outPacket = new DatagramPacket(msg, 1, serverAddress, 8888);
 		
 		DatagramSocket datagramSocket = new DatagramSocket();

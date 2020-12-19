@@ -20,25 +20,31 @@ public class UdpFileReceiver {
         System.out.println("파일 수신 대기중...");
           
         DatagramSocket ds = new DatagramSocket(port);
-        FileOutputStream fos = null;       
-        fos = new FileOutputStream("d:/D_Other/Tulips3.jpg");
+        FileOutputStream fos = new FileOutputStream("d:/D_Other/Tulips3.jpg");
         DatagramPacket dp = new DatagramPacket(buffer, buffer.length);
+        
         ds.receive(dp);
+        
         String str = new String(dp.getData()).trim();
          
         if (str.equals("start")){ // sender에서 전송을 시작한 경우...
         	
+        	// fileSize 받기
             dp = new DatagramPacket(buffer, buffer.length);
             ds.receive(dp);
             str = new String(dp.getData()).trim();
             fileSize = Long.parseLong(str);
+            
             double startTime = System.currentTimeMillis(); 
             while (true) {
+            	// 파일 수신
                 ds.receive(dp);
+                
                 str = new String(dp.getData()).trim();
                 nReadSize = dp.getLength();
                 fos.write(dp.getData(), 0, nReadSize);
-                totalReadBytes+=nReadSize;
+                
+                totalReadBytes += nReadSize;
                 System.out.println("In progress: " + totalReadBytes + "/"
                         + fileSize + " Byte(s) ("
                         + (totalReadBytes * 100 / fileSize) + " %)");
