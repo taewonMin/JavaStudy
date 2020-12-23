@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeSet;
 
 /*
  	 로또를 구매하는 프로그램 작성하기
@@ -114,7 +115,7 @@ class Lotto{
 		System.out.println("\n행운의 로또번호는 아래와 같습니다.");
 		
 		for(int i=0; i<money/1000; i++) {
-			Set<Integer> lottoSet = new HashSet<>();
+			Set<Integer> lottoSet = new TreeSet<>();
 			while(lottoSet.size()<BALL_COUNT) {
 				int rand = (int)(Math.random()*RANGE_OF_NUMBER+1);
 				lottoSet.add(rand);
